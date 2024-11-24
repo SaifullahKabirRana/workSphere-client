@@ -3,14 +3,16 @@ import logo from '../assets/images/logo (1).png'
 import { AuthContext } from '../provider/AuthProvider'
 import { Link } from 'react-router-dom';
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   return (
     <div className='navbar container px-4 mx-auto'>
       <div className='flex-1'>
-        <div className='flex gap-2 items-center'>
-          <img className='w-auto h-7' src={logo} alt='' />
-          <span className='font-bold'>WorkSphere</span>
-        </div>
+        <Link to='/'>
+          <div className='flex gap-2 items-center'>
+            <img className='w-auto h-7' src={logo} alt='' />
+            <span className='font-bold'>WorkSphere</span>
+          </div>
+        </Link>
       </div>
       <div className='flex-none'>
         <ul className='menu menu-horizontal px-1'>
@@ -37,11 +39,11 @@ const Navbar = () => {
               role='button'
               className='btn btn-ghost btn-circle avatar'
             >
-              <div className='w-10 rounded-full' title=''>
+              <div className='w-10 rounded-full' title={user?.displayName}>
                 <img
                   referrerPolicy='no-referrer'
                   alt='User Profile Photo'
-                  src=''
+                  src={user?.photoURL}
                 />
               </div>
             </div>
@@ -62,7 +64,7 @@ const Navbar = () => {
                 <div>Bid Requests</div>
               </li>
               <li className='mt-2'>
-                <button className='bg-gray-200 block text-center'>Logout</button>
+                <button onClick={logOut} className='bg-gray-200 block text-center'>Logout</button>
               </li>
             </ul>
           </div>
