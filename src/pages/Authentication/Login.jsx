@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
-import login from '../../assets/images/login.jpg'
+// import login from '../../assets/images/login.jpg'
 import logo from '../../assets/images/logo (1).png'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 const Login = () => {
     return (
-        <div className='py-6 md:py-8 lg:py-12 flex justify-center items-center min-h-[calc(100vh-306px)]'>
+        <div className='px-4 md:px-0 py-6 md:py-8 lg:py-12 flex justify-center items-center min-h-[calc(100vh-306px)]'>
             <div className='flex flex-col lg:flex-row w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
                 {/* <div
                     className='hidden bg-cover bg-center lg:block lg:w-1/2'
@@ -12,11 +12,12 @@ const Login = () => {
                         backgroundImage: `url('https://images.unsplash.com/photo-1606660265514-358ebbadc80d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80')`,
                     }}
                 ></div> */}
-                <div className="lg:w-1/2 ">
+                <div className="lg:w-1/2 hidden lg:block">
                     <DotLottieReact
-                        src="https://lottie.host/786a39ae-82da-415a-adca-1487fcaf1b70/eOTx3lqbkG.lottie"
+                        src="https://lottie.host/3cc61a0e-6e94-459e-a0a0-815ddda16394/SZb0nG3zW7.lottie"
                         loop
                         autoplay
+                        
                     />
                 </div>
 
@@ -81,7 +82,7 @@ const Login = () => {
                                 id='LoggingEmailAddress'
                                 autoComplete='email'
                                 name='email'
-                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-gray-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-gray-300'
                                 type='email'
                             />
                         </div>
@@ -100,7 +101,7 @@ const Login = () => {
                                 id='loggingPassword'
                                 autoComplete='current-password'
                                 name='password'
-                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-gray-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-gray-300'
                                 type='password'
                             />
                         </div>

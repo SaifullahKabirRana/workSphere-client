@@ -1,27 +1,36 @@
 import { useContext } from 'react'
 import logo from '../assets/images/logo (1).png'
 import { AuthContext } from '../provider/AuthProvider'
+import { Link } from 'react-router-dom';
 const Navbar = () => {
-  const {user} = useContext(AuthContext);
-    return (
-      <div className='navbar container px-4 mx-auto'>
-        <div className='flex-1'>
-          <div className='flex gap-2 items-center'>
-            <img className='w-auto h-7' src={logo} alt='' />
-            <span className='font-bold'>SoloSphere</span>
-          </div>
+  const { user } = useContext(AuthContext);
+  return (
+    <div className='navbar container px-4 mx-auto'>
+      <div className='flex-1'>
+        <div className='flex gap-2 items-center'>
+          <img className='w-auto h-7' src={logo} alt='' />
+          <span className='font-bold'>WorkSphere</span>
         </div>
-        <div className='flex-none'>
-          <ul className='menu menu-horizontal px-1'>
-            <li>
+      </div>
+      <div className='flex-none'>
+        <ul className='menu menu-horizontal px-1'>
+          <li>
+            <Link to='/'>
               <div>Home</div>
-            </li>
-  
+            </Link>
+          </li>
+
+          {!user &&
             <li>
-              <div>Login</div>
+              <Link to='/login'>
+                <div>Login</div>
+              </Link>
             </li>
-          </ul>
-  
+          }
+        </ul>
+
+        {
+          user &&
           <div className='dropdown dropdown-end z-50'>
             <div
               tabIndex={0}
@@ -57,9 +66,10 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-        </div>
+        }
       </div>
-    )
-  }
-  
-  export default Navbar
+    </div>
+  )
+}
+
+export default Navbar

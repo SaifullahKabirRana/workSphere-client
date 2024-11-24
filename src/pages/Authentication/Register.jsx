@@ -1,15 +1,20 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Link } from "react-router-dom";
+import logo from '../../assets/images/logo (1).png'
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
+    const {createUser} = useContext(AuthContext);
+
     return (
-        <div className='flex justify-center items-center min-h-[calc(100vh-306px)]'>
+        <div className='px-4 md:px-0 py-6 md:py-8 lg:py-12 flex justify-center items-center min-h-[calc(100vh-306px)]'>
             <div className='flex flex-col-reverse lg:flex-row w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
                 <div className='w-full px-6 py-8 md:px-8 lg:w-1/2'>
                     <div className='flex justify-center mx-auto'>
                         <img
                             className='w-auto h-7 sm:h-8'
-                            src='https://merakiui.com/images/logo.svg'
+                            src={logo}
                             alt=''
                         />
                     </div>
@@ -66,7 +71,7 @@ const Register = () => {
                                 id='name'
                                 autoComplete='name'
                                 name='name'
-                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-gray-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-gray-300'
                                 type='text'
                             />
                         </div>
@@ -81,7 +86,7 @@ const Register = () => {
                                 id='photo'
                                 autoComplete='photo'
                                 name='photo'
-                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-gray-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-gray-300'
                                 type='text'
                             />
                         </div>
@@ -96,7 +101,7 @@ const Register = () => {
                                 id='LoggingEmailAddress'
                                 autoComplete='email'
                                 name='email'
-                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-gray-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-gray-300'
                                 type='email'
                             />
                         </div>
@@ -115,7 +120,7 @@ const Register = () => {
                                 id='loggingPassword'
                                 autoComplete='current-password'
                                 name='password'
-                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-gray-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-gray-300'
                                 type='password'
                             />
                         </div>
@@ -148,9 +153,9 @@ const Register = () => {
                         backgroundImage: `url('https://images.unsplash.com/photo-1606660265514-358ebbadc80d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80')`,
                     }}
                 ></div> */}
-                <div className="w-full lg:w-1/2">
+                <div className="hidden lg:block lg:w-1/2">
                     <DotLottieReact
-                        src="https://lottie.host/d27c4c34-9cb3-48ba-adf5-36d8cb1c0419/82nySMJf8I.lottie"
+                        src="https://lottie.host/786a39ae-82da-415a-adca-1487fcaf1b70/eOTx3lqbkG.lottie"
                         loop
                         autoplay
                     />
