@@ -33,13 +33,13 @@ const Navbar = () => {
 
         {
           user &&
-          <div className='dropdown dropdown-end z-50'>
+          <div className='dropdown dropdown-end z-50 '>
             <div
               tabIndex={0}
               role='button'
-              className='btn btn-ghost btn-circle avatar'
+              className='btn btn-ghost btn-circle avatar '
             >
-              <div className='w-10 rounded-full' title={user?.displayName}>
+              <div className='w-10  rounded-full' title={user?.displayName}>
                 <img
                   referrerPolicy='no-referrer'
                   alt='User Profile Photo'
