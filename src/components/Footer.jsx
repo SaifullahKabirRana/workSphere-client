@@ -65,7 +65,7 @@ const Footer = () => {
               © Copyright 2024. All Rights Reserved.
             </p>
   
-            <div className='flex -mx-2'>
+            <div className='flex -mx-2 mt-3 md:mt-0'>
               <a
                 href='#'
                 className='mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500 '
