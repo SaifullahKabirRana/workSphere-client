@@ -1,19 +1,35 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../provider/AuthProvider"
 import axios from "axios";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const MyPostedJobs = () => {
     const { user } = useContext(AuthContext);
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
-        const getData = async () => {
-            const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs/${user?.email}`)
-            setJobs(data);
-        }
+
         getData();
     }, [user])
-    console.log(jobs);
+
+    const getData = async () => {
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs/${user?.email}`)
+        setJobs(data);
+    }
+
+    const handleDelete = async id => {
+        try {
+            const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/job/${id}`);
+            toast.success('Delete Successfully!')
+            // refresh ui
+            getData();
+        }
+        catch (err) {
+            toast.error(err?.code);
+        }
+    }
+
     return (
         <section className='container px-4 mx-auto pt-12'>
             <div className='flex items-center gap-x-3'>
@@ -76,14 +92,14 @@ const MyPostedJobs = () => {
                                 </thead>
                                 <tbody className='bg-white divide-y divide-gray-200 '>
                                     {
-                                        jobs.map(job => 
+                                        jobs.map(job =>
                                             <tr key={job._id}>
                                                 <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
                                                     {job.job_title}
                                                 </td>
 
                                                 <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                    {job.deadline}
+                                                    {new Date(job.deadline).toLocaleDateString()}
                                                 </td>
 
                                                 <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
@@ -92,8 +108,18 @@ const MyPostedJobs = () => {
                                                 <td className='px-4 py-4 text-sm whitespace-nowrap'>
                                                     <div className='flex items-center gap-x-2'>
                                                         <p
-                                                            className='px-3 py-1 rounded-full text-blue-500 bg-blue-100/60
-                             text-xs'
+                                                            className={`px-3 py-1 rounded-full text-xs
+                                                                 ${job.category === 'Web Development' &&
+                                                                'text-blue-500 bg-blue-100/60'
+                                                                }
+                                                                 ${job.category === 'Graphics Design' &&
+                                                                'text-emerald-500 bg-emerald-100/60'
+                                                                }
+                                                                 ${job.category === 'Digital Marketing' &&
+                                                                'text-pink-500 bg-pink-100/60'
+                                                                }
+                                                                 
+                                                                 `}
                                                         >
                                                             {job.category}
                                                         </p>
@@ -103,11 +129,13 @@ const MyPostedJobs = () => {
                                                     title={job.description}
                                                     className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'
                                                 >
-                                                    {job.description.substring(0,30)}...
+                                                    {job.description.substring(0, 20)}...
                                                 </td>
                                                 <td className='px-4 py-4 text-sm whitespace-nowrap'>
                                                     <div className='flex items-center gap-x-6'>
-                                                        <button className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none'>
+                                                        <button
+                                                            onClick={() => handleDelete(job._id)}
+                                                            className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none'>
                                                             <svg
                                                                 xmlns='http://www.w3.org/2000/svg'
                                                                 fill='none'
@@ -124,7 +152,7 @@ const MyPostedJobs = () => {
                                                             </svg>
                                                         </button>
 
-                                                        <button className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'>
+                                                        <Link to={`/update/${job._id}`} className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'>
                                                             <svg
                                                                 xmlns='http://www.w3.org/2000/svg'
                                                                 fill='none'
@@ -139,7 +167,7 @@ const MyPostedJobs = () => {
                                                                     d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10'
                                                                 />
                                                             </svg>
-                                                        </button>
+                                                        </Link>
                                                     </div>
                                                 </td>
                                             </tr>
