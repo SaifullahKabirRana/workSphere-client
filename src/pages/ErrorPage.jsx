@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import error from '../assets/images/error.jpg';
 const ErrorPage = () => {
+    const navigate = useNavigate();
+    const handleGoBack =  () => {
+        navigate(-1);
+    }
     return (
         <section className='bg-white '>
             <div className='container min-h-screen px-6 py-12 mx-auto lg:flex lg:items-center lg:gap-12'>
@@ -14,7 +18,7 @@ const ErrorPage = () => {
                         helpful links:
                     </p>
 
-                    <div className='flex items-center mt-6 gap-x-3'>
+                    <div onClick={handleGoBack} className='flex items-center mt-6 gap-x-3'>
                         <button className='flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto hover:bg-gray-100 '>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
