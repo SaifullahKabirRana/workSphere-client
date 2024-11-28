@@ -53,9 +53,9 @@ const JobDetails = () => {
 
 
     return (
-        <div className='flex flex-col md:flex-row justify-around gap-5  items-center min-h-[calc(100vh-306px)] md:max-w-screen-xl mx-auto '>
+        <div className='flex flex-col lg:flex-row justify-around gap-5  items-center min-h-[calc(100vh-306px)] lg:max-w-screen-xl xl:mx-auto lg:mx-4 md:mx-20 mx-4 mb-12 md:mb-16 lg:mb-24 md:mt-6 mt-2 lg:mt-8 2xl:mt-0'>
             {/* Job Details */}
-            <div className='flex-1  px-4 py-7 bg-white rounded-md shadow-md md:min-h-[350px]'>
+            <div className='flex-1 w-full mb-2 lg:mb-0 px-3 md:px-6 lg:px-4 py-7 bg-white rounded-md shadow-md md:min-h-[350px]'>
                 <div className='flex items-center justify-between'>
                     <span className='text-sm font-light text-gray-800 '>
                         Deadline: {new Date(deadline).toLocaleDateString()}
@@ -93,7 +93,7 @@ const JobDetails = () => {
                 </div>
             </div>
             {/* Place A Bid Form */}
-            <section className='p-6 w-full  bg-white rounded-md shadow-md flex-1 md:min-h-[350px]'>
+            <section className='p-4 md:p-6 w-full  bg-white rounded-md shadow-md flex-1 md:min-h-[350px]'>
                 <h2 className='text-lg font-semibold text-gray-700 capitalize '>
                     Place A Bid
                 </h2>

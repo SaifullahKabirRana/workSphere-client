@@ -14,7 +14,7 @@ const TabCategories = () => {
         getData();
     }, [])
     return (
-        <div>
+        <div className='pb-8 md:pb-10 xl:pb-14'>
             <Tabs>
                 <div className='container mx-auto px-4 md:px-5 mt-5 md:mt-6 xl:mt-8'>
                     <h1 className='text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl '>

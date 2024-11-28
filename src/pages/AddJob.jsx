@@ -48,8 +48,8 @@ const AddJob = () => {
         }
     }
     return (
-        <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-12'>
-            <section className=' p-2 md:p-6 mx-auto bg-white rounded-md shadow-md '>
+        <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-4 md:my-12 pb-6'>
+            <section className='mx-4 md:mx-[18%] lg:mx-[22%] xl:mx-[30%] 2xl:mx-[35%] w-full p-4 md:p-6 bg-white rounded-md shadow-md '>
                 <h2 className='text-lg font-semibold text-gray-700 capitalize '>
                     Post a Job
                 </h2>
@@ -141,7 +141,7 @@ const AddJob = () => {
                     </div>
                     <div className='flex justify-end mt-6'>
                         <button className='px-8 py-2.5 leading-5 text-white transition-colors duration-300 transhtmlForm bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600'>
-                            Save
+                            Post
                         </button>
                     </div>
                 </form>
