@@ -64,6 +64,7 @@ const AddJob = () => {
                                 id='job_title'
                                 name='job_title'
                                 type='text'
+                                required
                                 className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-gray-400 focus:ring-gray-300 focus:ring-opacity-40  focus:outline-none focus:ring'
                             />
                         </div>
@@ -113,6 +114,7 @@ const AddJob = () => {
                                 id='min_price'
                                 name='min_price'
                                 type='number'
+                                required
                                 className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-gray-400 focus:ring-gray-300 focus:ring-opacity-40  focus:outline-none focus:ring'
                             />
                         </div>
@@ -125,6 +127,7 @@ const AddJob = () => {
                                 id='max_price'
                                 name='max_price'
                                 type='number'
+                                required
                                 className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-gray-400 focus:ring-gray-300 focus:ring-opacity-40  focus:outline-none focus:ring'
                             />
                         </div>
@@ -137,6 +140,7 @@ const AddJob = () => {
                             className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-gray-400 focus:ring-gray-300 focus:ring-opacity-40  focus:outline-none focus:ring'
                             name='description'
                             id='description'
+                            required
                         ></textarea>
                     </div>
                     <div className='flex justify-end mt-6'>

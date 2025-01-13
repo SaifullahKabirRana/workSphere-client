@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -12,6 +12,7 @@ const JobDetails = () => {
     const [startDate, setStartDate] = useState(new Date());
     const job = useLoaderData();
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
     const { job_title, deadline, category, min_price, max_price, description, _id, buyer } = job || {};
 
 
@@ -35,16 +36,18 @@ const JobDetails = () => {
             deadline,
             comment,
             category,
-            buyer_email: buyer?.email,
             email,
-            status
+            photo: user?.photoURL,
+            status,
+            buyer
 
         }
 
         try {
             const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/bid`, bidData);
             console.log(data);
-            toast.success('Place Your Bid');
+            toast.success('Bid Placed Successfully!');
+            navigate('/my-bids');
         }
         catch (err) {
             toast.error(err?.code)
@@ -83,8 +86,8 @@ const JobDetails = () => {
                                 Email: {buyer?.email}
                             </p>
                         </div>
-                        <div className='rounded-full object-cover overflow-hidden w-14 h-14'>
-                            <img src={buyer?.photo} alt='' />
+                        <div className=''>
+                            <img className="rounded-full w-14 h-14 object-cover" src={buyer?.photo} alt='' />
                         </div>
                     </div>
                     <p className='mt-6 text-lg font-bold text-gray-600 '>

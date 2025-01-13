@@ -3,7 +3,10 @@ import logo from '../assets/images/logo (1).png'
 import { AuthContext } from '../provider/AuthProvider'
 import { Link } from 'react-router-dom';
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
+  if(loading){
+    return 
+  }
   return (
     <div className='navbar container px-4 mx-auto'>
       <div className='flex-1'>

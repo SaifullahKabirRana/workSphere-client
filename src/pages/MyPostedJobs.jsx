@@ -5,13 +5,15 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const MyPostedJobs = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const [jobs, setJobs] = useState([]);
+
 
     useEffect(() => {
 
         getData();
     }, [user])
+
 
     const getData = async () => {
         const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs/${user?.email}`)
@@ -30,6 +32,13 @@ const MyPostedJobs = () => {
         }
     }
 
+    if (loading) {
+        return <div className="flex justify-center mt-60 md:mt-72 xl:mt-96">
+            <span className="loader"></span>
+        </div>
+
+    }
+
     return (
         <section className='md:container px-4 md:px-4 mx-4 md:mx-auto pt-6 md:pt-8 lg:pt-12'>
             <div className='flex items-center gap-x-3'>
@@ -43,7 +52,7 @@ const MyPostedJobs = () => {
             <div className='flex flex-col mt-6'>
                 <div className='-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
                     <div className='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
-                        <div className='overflow-hidden border border-gray-200  md:rounded-lg'>
+                        <div className='overflow-hidden border border-gray-200 rounded-lg'>
                             <table className='min-w-full divide-y divide-gray-200'>
                                 <thead className='bg-gray-50'>
                                     <tr>

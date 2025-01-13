@@ -1,13 +1,20 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from '../../assets/images/logo (1).png'
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
-    const { createUser, signInWithGoogle, user, setUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, signInWithGoogle, user, setUser, updateUserProfile, loading } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Do not go to register page(if user login)
+    if(user || loading){
+        navigate('/')
+        return
+        }
 
     // Google Login
     const handleGoogleSignIn = async () => {
@@ -15,7 +22,7 @@ const Register = () => {
         try {
             await signInWithGoogle();
             toast.success('Signin Successfully')
-            navigate('/');
+            navigate(location?.state ? location?.state : '/', {replace:true});
         }
         catch (err) {
             console.log(err);
@@ -38,7 +45,7 @@ const Register = () => {
             console.log(result);
             await updateUserProfile(name, photo);
             setUser({ ...user, photoURL: photo, displayName: name });
-            navigate('/');
+            navigate(location?.state ? location?.state : '/', {replace:true});
             toast.success('SignUp Successfully');
         }
         catch(err) {

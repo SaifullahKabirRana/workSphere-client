@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 // import login from '../../assets/images/login.jpg'
 import logo from '../../assets/images/logo (1).png'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
@@ -6,8 +6,15 @@ import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
 const Login = () => {
-    const { signIn, signInWithGoogle } = useContext(AuthContext);
+    const { signIn, signInWithGoogle, user, loading } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation()
+
+    // Do not go to login page(if user login)
+    if(user || loading){
+    navigate('/')
+    return
+    }
 
     // Google Login
     const handleGoogleSignIn = async () => {
@@ -15,7 +22,7 @@ const Login = () => {
         try {
             await signInWithGoogle();
             toast.success('Signin Successfully')
-            navigate('/');
+            navigate(location?.state ? location?.state : '/', {replace:true});
         }
         catch (err) {
             console.log(err);
@@ -33,7 +40,7 @@ const Login = () => {
         try {
             await signIn(email, password)
             toast.success('Signin Successfully');
-            navigate('/');
+            navigate(location?.state ? location?.state : '/', {replace:true});
         }
         catch(err) {
             console.log(err.message);
