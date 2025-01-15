@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MyBids = () => {
     const { user } = useContext(AuthContext);
@@ -15,7 +16,16 @@ const MyBids = () => {
         const { data } = await axios(`${import.meta.env.VITE_API_URL}/my-bids/${user?.email}`)
         setBids(data);
     }
-    console.log(bids);
+
+    // handleStatus
+    const handleStatus = async (id, status) => {
+        const { data } = await axios.patch(
+            `${import.meta.env.VITE_API_URL}/bid/${id}`,
+            { status },
+        )
+        console.log(data);
+        getData();
+    }
 
     return (
         <div>
@@ -83,8 +93,10 @@ const MyBids = () => {
                                         {
                                             bids.map(bid =>
                                                 <tr key={bid._id}>
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                        {bid.job_title}
+                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap hover:font-bold'>
+                                                        <Link to={`/job/${bid.jobId}`}>
+                                                            {bid.job_title}
+                                                        </Link>
                                                     </td>
 
                                                     <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
@@ -137,6 +149,9 @@ const MyBids = () => {
                                                     </td>
                                                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
                                                         <button
+                                                            onClick={() =>
+                                                                handleStatus(bid._id, "Complete")
+                                                            }
                                                             disabled={bid.status !== 'In Progress'}
                                                             title='Mark Complete'
                                                             className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed'

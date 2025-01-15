@@ -20,10 +20,11 @@ const BidRequests = () => {
 
     // handleStatus
     const handleStatus = async (id, prevStatus, status) => {
-        if(prevStatus === status) return toast.error("Already In Progress!")
+        if (prevStatus === "In Progress") return toast.error("Already In Progress!")
+        if (prevStatus === "Rejected") return toast.error("Already Rejected!")
         console.log(id, prevStatus, status);
         const { data } = await axios.patch(
-            `${import.meta.env.VITE_API_URL}/bid/${id}`, 
+            `${import.meta.env.VITE_API_URL}/bid/${id}`,
             { status }
         )
         getData();
@@ -105,16 +106,16 @@ const BidRequests = () => {
                                         {
                                             bids.map(bid =>
                                                 <tr key={bid._id}>
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
+                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap hover:font-bold'>
                                                         <Link to={`/job/${bid.jobId}`}>
                                                             {bid.job_title}
                                                         </Link>
                                                     </td>
                                                     <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
                                                         <div className="flex items-center gap-1 lg:gap-2">
-                                                            <img 
-                                                            referrerPolicy='no-referrer'
-                                                            className="w-5 h-5 lg:w-7 lg:h-7 rounded-full" src={bid.photo} alt="" />
+                                                            <img
+                                                                referrerPolicy='no-referrer'
+                                                                className="w-5 h-5 lg:w-7 lg:h-7 rounded-full object-cover" src={bid.photo} alt="" />
                                                             {bid.email}
                                                         </div>
                                                     </td>
@@ -169,9 +170,12 @@ const BidRequests = () => {
                                                     </td>
                                                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
                                                         <div className='flex items-center gap-x-6'>
+                                                            {/* Accept Button:  In Progress  */}
                                                             <button
                                                                 onClick={() => handleStatus(bid._id, bid.status, 'In Progress')}
-                                                                className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none'>
+                                                                disabled={bid.status === "Complete"}
+                                                                className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none
+                                                                disabled:cursor-not-allowed'>
                                                                 <svg
                                                                     xmlns='http://www.w3.org/2000/svg'
                                                                     fill='none'
@@ -187,8 +191,14 @@ const BidRequests = () => {
                                                                     />
                                                                 </svg>
                                                             </button>
-
-                                                            <button className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'>
+                                                            {/* Reject Button */}
+                                                            <button 
+                                                            onClick={() => 
+                                                                handleStatus(bid._id, bid.status, 'Rejected')
+                                                            }
+                                                            disabled={bid.status === 'Complete'}
+                                                            className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none
+                                                            disabled:cursor-not-allowed'>
                                                                 <svg
                                                                     xmlns='http://www.w3.org/2000/svg'
                                                                     fill='none'
