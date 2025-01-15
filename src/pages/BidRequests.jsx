@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const BidRequests = () => {
     const { user } = useContext(AuthContext);
@@ -19,6 +20,7 @@ const BidRequests = () => {
 
     // handleStatus
     const handleStatus = async (id, prevStatus, status) => {
+        if(prevStatus === status) return toast.error("Already In Progress!")
         console.log(id, prevStatus, status);
         const { data } = await axios.patch(
             `${import.meta.env.VITE_API_URL}/bid/${id}`, 
@@ -110,7 +112,9 @@ const BidRequests = () => {
                                                     </td>
                                                     <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
                                                         <div className="flex items-center gap-1 lg:gap-2">
-                                                            <img className="w-5 h-5 lg:w-7 lg:h-7 rounded-full" src={bid.photo} alt="" />
+                                                            <img 
+                                                            referrerPolicy='no-referrer'
+                                                            className="w-5 h-5 lg:w-7 lg:h-7 rounded-full" src={bid.photo} alt="" />
                                                             {bid.email}
                                                         </div>
                                                     </td>
