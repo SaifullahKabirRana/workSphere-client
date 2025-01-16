@@ -4,6 +4,7 @@ import logo from '../../assets/images/logo (1).png'
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import axios from "axios";
 
 const Register = () => {
     const { createUser, signInWithGoogle, user, setUser, updateUserProfile, loading } = useContext(AuthContext);
@@ -11,10 +12,10 @@ const Register = () => {
     const location = useLocation();
 
     // Do not go to register page(if user login)
-    if(user || loading){
+    if (user || loading) {
         navigate('/')
         return
-        }
+    }
 
     // Google Login
     const handleGoogleSignIn = async () => {
@@ -22,7 +23,7 @@ const Register = () => {
         try {
             await signInWithGoogle();
             toast.success('Signin Successfully')
-            navigate(location?.state ? location?.state : '/', {replace:true});
+            navigate(location?.state ? location?.state : '/', { replace: true });
         }
         catch (err) {
             console.log(err);
@@ -42,13 +43,18 @@ const Register = () => {
 
         try {
             const result = await createUser(email, password);
-            console.log(result);
             await updateUserProfile(name, photo);
-            setUser({ ...user, photoURL: photo, displayName: name });
-            navigate(location?.state ? location?.state : '/', {replace:true});
+            // Optimistic UI Update
+            setUser({ ...result?.user, photoURL: photo, displayName: name });
+            // jwt
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,
+                { email: result?.user?.email },
+                { withCredentials: true },
+            )
+            navigate(location?.state ? location?.state : '/', { replace: true });
             toast.success('SignUp Successfully');
         }
-        catch(err) {
+        catch (err) {
             console.log(err.message);
             toast.error(err?.code);
         }

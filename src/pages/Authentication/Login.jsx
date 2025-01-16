@@ -5,24 +5,34 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
+import axios from "axios";
 const Login = () => {
     const { signIn, signInWithGoogle, user, loading } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation()
 
     // Do not go to login page(if user login)
-    if(user || loading){
-    navigate('/')
-    return
+    if (user || loading) {
+        navigate('/')
+        return
     }
 
     // Google Login
     const handleGoogleSignIn = async () => {
 
         try {
-            await signInWithGoogle();
+            // await signInWithGoogle();
+
+            // for jwt
+            const result = await signInWithGoogle();
+            console.log(result.user);
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,
+                { email: result?.user?.email },
+                { withCredentials: true },
+            )
+            console.log('token :', data);
             toast.success('Signin Successfully')
-            navigate(location?.state ? location?.state : '/', {replace:true});
+            navigate(location?.state ? location?.state : '/', { replace: true });
         }
         catch (err) {
             console.log(err);
@@ -38,11 +48,16 @@ const Login = () => {
         console.log(email, password);
 
         try {
-            await signIn(email, password)
+            const result = await signIn(email, password);
+            console.log(result.user);
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,
+                { email: result?.user?.email },
+                { withCredentials: true },
+            )
             toast.success('Signin Successfully');
-            navigate(location?.state ? location?.state : '/', {replace:true});
+            navigate(location?.state ? location?.state : '/', { replace: true });
         }
-        catch(err) {
+        catch (err) {
             console.log(err.message);
             toast.error(err?.code);
         }

@@ -27,8 +27,10 @@ const BidRequests = () => {
             `${import.meta.env.VITE_API_URL}/bid/${id}`,
             { status }
         )
+
+        // UI Refresh/Update
         getData();
-        console.log(data);
+        
     }
 
 
