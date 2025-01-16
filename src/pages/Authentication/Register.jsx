@@ -21,7 +21,11 @@ const Register = () => {
     const handleGoogleSignIn = async () => {
 
         try {
-            await signInWithGoogle();
+            const result = await signInWithGoogle();
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,
+                { email: result?.user?.email },
+                { withCredentials: true },
+            )
             toast.success('Signin Successfully')
             navigate(location?.state ? location?.state : '/', { replace: true });
         }
