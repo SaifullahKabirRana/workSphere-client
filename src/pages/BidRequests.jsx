@@ -1,24 +1,34 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../provider/AuthProvider";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { data, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAuth from "../hooks/useAuth";
 
 const BidRequests = () => {
-    const { user } = useContext(AuthContext);
-    const [bids, setBids] = useState([])
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
 
 
-    useEffect(() => {
-        getData()
-    }, [user])
+    const { data: bids = [],
+        isLoading,
+        refetch,
+        isError,
+        error } = useQuery({
+            queryFn: () => getData(),
+            queryKey: ['bids'],
+        })
+    console.log(bids);
+    console.log(isLoading);
+
+    // const [bids, setBids] = useState([])
+    // useEffect(() => {
+    //     getData()
+    // }, [user])
 
     const getData = async () => {
-        const { data } = await axios(
-            `${import.meta.env.VITE_API_URL}/bid-requests/${user?.email}`,
-            {withCredentials: true}
-        )
-        setBids(data);
+        const { data } = await axiosSecure(`/bid-requests/${user?.email}`)
+        return data;
     }
 
     // handleStatus
@@ -26,17 +36,19 @@ const BidRequests = () => {
         if (prevStatus === "In Progress") return toast.error("Already In Progress!")
         if (prevStatus === "Rejected") return toast.error("Already Rejected!")
         console.log(id, prevStatus, status);
-        const { data } = await axios.patch(
-            `${import.meta.env.VITE_API_URL}/bid/${id}`,
-            { status }
+        const { data } = await axiosSecure.patch(`/bid/${id}`, { status }
         )
 
         // UI Refresh/Update
         getData();
-        
+
     }
 
-
+    if (isLoading) {
+        return <div className="flex justify-center mt-60 md:mt-72 xl:mt-96">
+            <span className="loader2"></span>
+        </div>
+    }
     return (
         <div>
             <section className='container px-4 mx-auto pt-12'>
@@ -197,12 +209,12 @@ const BidRequests = () => {
                                                                 </svg>
                                                             </button>
                                                             {/* Reject Button */}
-                                                            <button 
-                                                            onClick={() => 
-                                                                handleStatus(bid._id, bid.status, 'Rejected')
-                                                            }
-                                                            disabled={bid.status === 'Complete'}
-                                                            className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none
+                                                            <button
+                                                                onClick={() =>
+                                                                    handleStatus(bid._id, bid.status, 'Rejected')
+                                                                }
+                                                                disabled={bid.status === 'Complete'}
+                                                                className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none
                                                             disabled:cursor-not-allowed'>
                                                                 <svg
                                                                     xmlns='http://www.w3.org/2000/svg'
