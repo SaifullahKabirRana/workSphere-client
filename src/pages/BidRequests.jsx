@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { data, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -13,7 +12,7 @@ const BidRequests = () => {
 
     const { data: bids = [],
         isLoading,
-        refetch,
+        // refetch,
         isError,
         error } = useQuery({
             queryFn: () => getData(),

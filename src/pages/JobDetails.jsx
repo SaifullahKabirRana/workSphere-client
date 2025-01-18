@@ -50,7 +50,9 @@ const JobDetails = () => {
             navigate('/my-bids');
         }
         catch (err) {
-            toast.error(err?.code)
+            toast.error(err?.response?.data)
+            // for form reset
+            e.target.reset();
         }
     }
 
