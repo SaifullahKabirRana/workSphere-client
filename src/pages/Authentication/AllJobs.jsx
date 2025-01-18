@@ -5,11 +5,11 @@ const AllJobs = () => {
     <div className='container px-6 py-10 mx-auto min-h-[calc(100vh-306px)] flex flex-col justify-between'>
       <div>
         <div className='flex flex-col md:flex-row justify-center items-center gap-5 '>
-          <div>
+          <div className="relative top-12 md:top-20 lg:top-0 -left-24 lg:-left-0 md:left-32"> 
             <select
               name='category'
               id='category'
-              className='border p-4 rounded-lg'
+              className='border p-2 md:p-4 rounded-lg w-[140px] md:w-[188px] h-[40px] md:h-[54px] text-xs md:text-sm '
             >
               <option value=''>Filter By Category</option>
               <option value='Web Development'>Web Development</option>
@@ -18,8 +18,8 @@ const AllJobs = () => {
             </select>
           </div>
 
-          <form>
-            <div className='flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
+          <form className="w-[275px] md:w-[330px] text-sm md:text-base">
+            <div className='relative -top-20 md:-top-0 flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-gray-400 focus-within:ring-gray-300 '>
               <input
                 className='px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent'
                 type='text'
@@ -28,23 +28,23 @@ const AllJobs = () => {
                 aria-label='Enter Job Title'
               />
 
-              <button className='px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'>
+              <button className='px-1 py-1 md:px-4 md:py-3 text-xs md:text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none '>
                 Search
               </button>
             </div>
           </form>
-          <div>
+          <div className="relative bottom-[78px] md:-bottom-20 lg:bottom-0 -right-16 md:right-32 lg:-right-0">
             <select
               name='category'
               id='category'
-              className='border p-4 rounded-md'
+              className='border p-2 md:p-4 rounded-md w-[140px] md:w-[188px] h-[40px] md:h-[54px] text-xs md:text-sm'
             >
               <option value=''>Sort By Deadline</option>
               <option value='dsc'>Descending Order</option>
               <option value='asc'>Ascending Order</option>
             </select>
           </div>
-          <button className='btn'>Reset</button>
+          <button className='btn btn-sm md:btn-md relative bottom-20 md:-bottom-20 lg:bottom-0 md:right-24 lg:right-0 text-xs md:text-sm'>Reset</button>
         </div>
         <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {/* {jobs.map(job => (
@@ -53,8 +53,8 @@ const AllJobs = () => {
         </div>
       </div>
 
-      <div className='flex justify-center mt-12'>
-        <button className='px-4 py-2 mx-1 text-gray-700 disabled:text-gray-500 capitalize bg-gray-200 rounded-md disabled:cursor-not-allowed disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:bg-blue-500  hover:text-white'>
+      <div className='flex justify-center mt-12 text-sm md:text-base'>
+        <button className='px-2 md:px-4 py-1 md:py-2 mx-1 text-gray-700 disabled:text-gray-500 capitalize bg-gray-200 rounded-md disabled:cursor-not-allowed disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:bg-blue-500  hover:text-white'>
           <div className='flex items-center -mx-1'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -78,13 +78,13 @@ const AllJobs = () => {
         {pages.map(btnNum => (
           <button
             key={btnNum}
-            className={`hidden px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}
+            className={`px-1 md:px-4 py-1 md:py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}
           >
             {btnNum}
           </button>
         ))}
 
-        <button className='px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md hover:bg-blue-500 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:text-white disabled:cursor-not-allowed disabled:text-gray-500'>
+        <button className='px-2 md:px-4 py-1 md:py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md hover:bg-blue-500 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:text-white disabled:cursor-not-allowed disabled:text-gray-500'>
           <div className='flex items-center -mx-1'>
             <span className='mx-1'>Next</span>
 
