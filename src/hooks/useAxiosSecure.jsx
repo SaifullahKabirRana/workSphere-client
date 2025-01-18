@@ -7,9 +7,9 @@ const axiosSecure = axios.create({
     withCredentials: true,
 })
 const useAxiosSecure = () => {
-    const {logout} = useAuth();
+    const { logOut } = useAuth();
     const navigate = useNavigate();
-    
+
     // Response Interceptor
     axiosSecure.interceptors.response.use(
         res => {
@@ -18,10 +18,10 @@ const useAxiosSecure = () => {
         },
         async error => {
             console.log('error from axios interceptors', error.response);
-            if(error.response.status === 401 || error.response.status === 403) {
-                await logout();
+            if (error.response.status === 401 || error.response.status === 403) {
+                await logOut();
                 navigate('/login');
-            } 
+            }
             return Promise.reject(error);
         }
     )

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { data, Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
 
 const BidRequests = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const queryClient = useQueryClient();
 
 
     const { data: bids = [],
@@ -16,7 +17,7 @@ const BidRequests = () => {
         isError,
         error } = useQuery({
             queryFn: () => getData(),
-            queryKey: ['bids'],
+            queryKey: ['bids', user?.email],
         })
     console.log(bids);
     console.log(isLoading);
@@ -31,23 +32,48 @@ const BidRequests = () => {
         return data;
     }
 
+
+    const { mutateAsync } = useMutation({
+        mutationFn: async ({ id, status }) => {
+            await axiosSecure.patch(`/bid/${id}`, { status }
+            )
+        },
+        onSuccess: () => {
+            console.log(
+                'Wow, data updated'
+            );
+            toast.success('Updated')
+            // refresh ui for lates data 
+            // refetch();
+
+            // hard
+            queryClient.invalidateQueries({ queryKey: ['bids'] })
+        },
+
+    })
+
     // handleStatus
     const handleStatus = async (id, prevStatus, status) => {
         if (prevStatus === "In Progress") return toast.error("Already In Progress!")
         if (prevStatus === "Rejected") return toast.error("Already Rejected!")
         console.log(id, prevStatus, status);
-        const { data } = await axiosSecure.patch(`/bid/${id}`, { status }
-        )
+        // const { data } = await axiosSecure.patch(`/bid/${id}`, { status }
+        // )
 
         // UI Refresh/Update
-        getData();
+        // getData();
 
+        await mutateAsync({ id, status });
     }
 
     if (isLoading) {
         return <div className="flex justify-center mt-60 md:mt-72 xl:mt-96">
             <span className="loader2"></span>
         </div>
+    }
+
+    if (isError || error) {
+        toast.error(error.message);
     }
     return (
         <div>
