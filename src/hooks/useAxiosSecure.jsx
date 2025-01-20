@@ -16,11 +16,12 @@ const useAxiosSecure = () => {
             // console.log('response from:', res);
             return res;
         },
-        async error => {
+        error => {
             console.log('error from axios interceptors', error.response);
             if (error.response.status === 401 || error.response.status === 403) {
-                await logOut();
                 navigate('/login');
+                logOut();
+               
             }
             return Promise.reject(error);
         }
