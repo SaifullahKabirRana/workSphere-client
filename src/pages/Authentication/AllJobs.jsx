@@ -8,25 +8,28 @@ const AllJobs = () => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(0);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(`${import.meta.env.VITE_API_URL}/all-jobs?page=${currentPage}&size=${itemsPerPage}`);
+      const { data } = await axios(`${import.meta.env.VITE_API_URL}/all-jobs?page=${currentPage}&size=${itemsPerPage}&filter=${filter}`);
       setJobs(data);
+     
 
     }
     getData();
+    
 
-  }, [currentPage, itemsPerPage])
+  }, [currentPage, filter, itemsPerPage])
 
   useEffect(() => {
     const getCount = async () => {
-      const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs-count`);
+      const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs-count?filter=${filter}`);
       setCount(data.count);
 
     }
     getCount();
-  }, [])
+  }, [filter])
 
   console.log(count);
   // const pages = [1, 2, 3, 4, 5];
@@ -45,14 +48,19 @@ const AllJobs = () => {
         <div className='flex flex-col md:flex-row justify-center items-center gap-5 '>
           <div className="relative top-12 md:top-20 lg:top-0 -left-20 lg:-left-0 md:left-32">
             <select
+              onChange={e =>{
+                setFilter(e.target.value)
+                setCurrentPage(1)
+              }}
+              value={filter}
               name='category'
               id='category'
               className='border p-2 md:p-4 rounded-lg w-[140px] md:w-[188px] h-[40px] md:h-[54px] text-xs md:text-sm '
             >
-              <option className="hover:bg-gray-600 " value=''>Filter By Category</option>
-              <option className="hover:bg-gray-600" value='Web Development'>Web Development</option>
-              <option className="hover:bg-gray-600" value='Graphics Design'>Graphics Design</option>
-              <option className="hover:bg-gray-600" value='Digital Marketing'>Digital Marketing</option>
+              <option className="focus:bg-gray-600 " value=''>Filter By Category</option>
+              <option className="focus:bg-gray-600" value='Web Development'>Web Development</option>
+              <option className="focus:bg-gray-600" value='Graphics Design'>Graphics Design</option>
+              <option className="focus:bg-gray-600" value='Digital Marketing'>Digital Marketing</option>
             </select>
           </div>
 
