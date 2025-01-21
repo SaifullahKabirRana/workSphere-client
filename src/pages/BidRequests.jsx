@@ -76,7 +76,7 @@ const BidRequests = () => {
     }
     return (
         <div className="">
-            <section className='container px-4 mx-auto pt-12'>
+            <section className='md:container px-4 md:px-4 mx-4 md:mx-auto pt-6 md:pt-8 lg:pt-12 pb-8 md:pb-10'>
                 <div className='flex items-center gap-x-3'>
                     <h2 className='text-lg font-medium text-gray-800 '>Bid Requests</h2>
 

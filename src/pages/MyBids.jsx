@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const MyBids = () => {
     const { user } = useContext(AuthContext);
@@ -23,11 +24,12 @@ const MyBids = () => {
         const { data } = await axiosSecure.patch(`/bid/${id}`, { status },)
         console.log(data);
         getData();
+       
     }
 
     return (
         <div>
-            <section className='container px-4 mx-auto pt-12'>
+            <section className='md:container px-4 md:px-4 mx-4 md:mx-auto pt-6 md:pt-8 lg:pt-12 pb-8 md:pb-10'>
                 <div className='flex items-center gap-x-3'>
                     <h2 className='text-lg font-medium text-gray-800 '>My Bids</h2>
 
@@ -152,7 +154,8 @@ const MyBids = () => {
                                                             }
                                                             disabled={bid.status !== 'In Progress'}
                                                             title='Mark Complete'
-                                                            className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed'
+                                                            className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none
+                                                            disabled:cursor-not-allowed disabled:text-gray-300'
                                                         >
                                                             <svg
                                                                 xmlns='http://www.w3.org/2000/svg'

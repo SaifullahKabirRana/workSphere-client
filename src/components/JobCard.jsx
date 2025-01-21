@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
 const JobCard = ({ job }) => {
-    const { job_title, deadline, category, min_price, max_price, description, _id } = job || {};
+    const { job_title, deadline, category, min_price, max_price, description, _id, bid_count} = job || {};
+    console.log(bid_count, 'bid count');
     return (
         <Link to={`/job/${_id}`}>
             <div className='w-full min-h-[170px] lg:min-h-[205px] xl:min-h-[180px] max-w-sm px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all'>
@@ -24,6 +25,9 @@ const JobCard = ({ job }) => {
                     </p>
                     <p className='mt-2 text-sm font-bold text-gray-600 '>
                         Range: ${min_price} - ${max_price}
+                    </p>
+                    <p className='mt-2 text-sm font-bold text-gray-600 '>
+                        Bid Count: {bid_count}
                     </p>
                 </div>
             </div>
